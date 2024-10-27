@@ -43,7 +43,7 @@
 
         <!-- Tabla de Usuarios Cargados -->
         <div class="mt-5">
-            <h2 class="text-center mb-4">Usuarios Cargados</h2>
+            <h2 class="text-center mb-4">Registros</h2>
 
 
             @if($users->isNotEmpty())
@@ -53,10 +53,10 @@
                 <table class="table table-striped table-hover">
                     <thead class="table-dark">
                         <tr>
-                            <th>ID</th>
-                            <th>Nombre</th>
-                            <th>Email</th>
-                            <th>Registro</th>
+                            <th>id</th>
+                            <th>name</th>
+                            <th>email</th>
+                            <th>created_at</th>
                         </tr>
 
                     </thead>
