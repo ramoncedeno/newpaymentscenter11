@@ -53,10 +53,10 @@
                 <table class="table table-striped table-hover">
                     <thead class="table-dark">
                         <tr>
-                            <th>ID</th>
-                            <th>Nombre</th>
-                            <th>Email</th>
-                            <th>Registro</th>
+                            <th>id</th>
+                            <th>name</th>
+                            <th>email</th>
+                            <th>created_at</th>
                         </tr>
 
                     </thead>
@@ -69,8 +69,12 @@
                                 <td>{{ $user->created_at->setTimezone('America/Mexico_City')->format('Y/m/d H:i:s') }}</td>
                             </tr>
                         @endforeach
+
+
                     </tbody>
                 </table>
+
+                {{ $users->links('pagination::bootstrap-5') }}
             @else
                 <p class="text-center text-muted">No hay usuarios cargados en la base de datos.</p>
             @endif

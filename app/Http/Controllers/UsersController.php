@@ -32,7 +32,7 @@ class UsersController extends Controller
         public function showImportView()
     {
         // Obtener los usuarios ordenados por la fecha de creación del más reciente al más antiguo
-        $users = User::orderBy('created_at', 'desc')->get();
+        $users = User::orderBy('created_at', 'desc')->paginate(5);
 
         // Pasar los usuarios a la vista
         return view('Importview', compact('users'));
@@ -50,7 +50,7 @@ class UsersController extends Controller
             $handle = fopen('php://output', 'w');
 
             // Cabeceras del archivo CSV (primera fila)
-            fputcsv($handle, ['ID', 'Nombre', 'Email', 'Fecha de Creacion']);
+            fputcsv($handle, ['id', 'name', 'email', 'created_at']);
 
             // Agregar cada usuario al CSV
             foreach ($users as $user) {
