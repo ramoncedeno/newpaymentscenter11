@@ -7,8 +7,12 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Illuminate\Validation\ValidationException;
+use Maatwebsite\Excel\Concerns\WithBatchInserts;
+use Maatwebsite\Excel\Concerns\WithChunkReading;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class UsersImport implements ToModel,WithHeadingRow
+
+class UsersImport implements ToModel,WithHeadingRow,WithChunkReading,WithBatchInserts,ShouldQueue
 {
     /**
     * @param array $row
@@ -18,6 +22,7 @@ class UsersImport implements ToModel,WithHeadingRow
 
     public function model(array $row)
     {
+        set_time_limit(900);
 
         return new User([
             'name'     => $row['name'],
@@ -33,6 +38,17 @@ class UsersImport implements ToModel,WithHeadingRow
             ]);
         }
 
+    }
+
+    public function chunkSize(): int
+    {
+        return 50;
+    }
+
+
+    public function batchSize(): int
+    {
+        return 6000;
     }
 
 }

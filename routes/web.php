@@ -5,6 +5,8 @@ use App\Http\Controllers\ImportController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\EmailController;
+
 Route::view('/', 'welcome');
 
 Route::view('dashboard', 'dashboard')
@@ -31,3 +33,6 @@ Route::get('/importview', [UsersController::class, 'showImportView'])->name('imp
 
 Route::get('/export-users', [UsersController::class, 'export'])->name('export.users');
 
+//send email
+
+Route::get('/sendemail', [EmailController::class, 'sendEmail']);
