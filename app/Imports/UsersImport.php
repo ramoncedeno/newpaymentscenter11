@@ -40,15 +40,17 @@ class UsersImport implements ToModel,WithHeadingRow,WithChunkReading,WithBatchIn
 
     }
 
+    public function batchSize(): int
+    {
+        return 6000;
+    }
+
     public function chunkSize(): int
     {
         return 50;
     }
 
 
-    public function batchSize(): int
-    {
-        return 6000;
-    }
+
 
 }
