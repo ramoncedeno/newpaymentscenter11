@@ -71,6 +71,12 @@
                         @endforeach
                     </tbody>
                 </table>
+
+            <!-- Enlaces de paginación -->
+            <div class="d-flex justify-content-center">
+                {{ $users->onEachSide(1)->links('pagination::bootstrap-5') }}
+            </div>
+
             @else
                 <p class="text-center text-muted">No hay usuarios cargados en la base de datos.</p>
             @endif

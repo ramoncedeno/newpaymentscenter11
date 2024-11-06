@@ -58,7 +58,7 @@ class UsersController extends Controller
     public function showImportView()
     {
         // Obtener los usuarios ordenados por la fecha de creación del más reciente al más antiguo
-        $users = User::orderBy('created_at', 'desc')->get();
+        $users = User::orderBy('created_at', 'desc')->paginate(10);
 
         // Pasar los usuarios a la vista
         return view('Importview', compact('users'));
