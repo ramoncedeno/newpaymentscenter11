@@ -15,30 +15,12 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class UsersController extends Controller
 {
-    // public function export()
-    // {
-    //     return Excel::download(new UsersExport, 'users.xlsx');
-    // }
-
 
     public function import()
     {
         Excel::import(new UsersImport, 'users.xlsx');
 
         return redirect('/')->with('success', 'All good!');
-    }
-
-
-        public function showImportView()
-    {
-        // Obtener los usuarios ordenados por la fecha de creación del más reciente al más antiguo
-        $users = User::orderBy('created_at', 'desc')->get();
-
-        // Pasar los usuarios a la vista
-        return view('Importview', compact('users'));
-
-
-
     }
 
 
@@ -50,7 +32,7 @@ class UsersController extends Controller
             $handle = fopen('php://output', 'w');
 
             // Cabeceras del archivo CSV (primera fila)
-            fputcsv($handle, ['ID', 'Nombre', 'Email', 'Fecha de Creacion']);
+            fputcsv($handle, ['id', 'name', 'email', 'created_at']);
 
             // Agregar cada usuario al CSV
             foreach ($users as $user) {
@@ -69,6 +51,20 @@ class UsersController extends Controller
         $response->headers->set('Content-Disposition', 'attachment; filename="usuarios.csv"');
 
         return $response;
+    }
+
+
+
+    public function showImportView()
+    {
+        // Obtener los usuarios ordenados por la fecha de creación del más reciente al más antiguo
+        $users = User::orderBy('created_at', 'desc')->get();
+
+        // Pasar los usuarios a la vista
+        return view('Importview', compact('users'));
+
+
+
     }
 
 

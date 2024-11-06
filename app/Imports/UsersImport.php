@@ -3,18 +3,15 @@
 namespace App\Imports;
 
 use App\Models\User;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Illuminate\Validation\ValidationException;
+use Maatwebsite\Excel\Concerns\WithChunkReading;
 
-class UsersImport implements ToModel,WithHeadingRow
+class UsersImport implements ToModel,WithHeadingRow,WithChunkReading,ShouldQueue
 {
-    /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
 
     public function model(array $row)
     {
@@ -34,5 +31,17 @@ class UsersImport implements ToModel,WithHeadingRow
         }
 
     }
+
+    public function batchSize(): int
+    {
+        return 1000;
+    }
+
+
+    public function chunkSize(): int
+    {
+        return 300;
+    }
+
 
 }
